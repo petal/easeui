@@ -9,8 +9,6 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 100
-        versionName '1.0.0'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -23,14 +21,15 @@ android {
         }
     }
 
-    lintOptions {
-        abortOnError false
-    }
 
     //自3.6.0开始需要java8的支持
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    namespace 'com.hyphenate.easeui'
+    lint {
+        abortOnError false
     }
 
 }
@@ -43,7 +42,7 @@ dependencies {
     implementation files('libs/pinyin4j-2.5.0.jar')
 
 //  api project(':hyphenatechatsdk')
-    implementation 'io.hyphenate:hyphenate-chat:4.5.0'
+    api 'io.hyphenate:hyphenate-chat:4.5.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'

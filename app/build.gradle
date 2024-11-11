@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.hyphenate.easeuisimpledemo"
         minSdkVersion 21
@@ -23,6 +22,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.hyphenate.easeuisimpledemo'
 
 }
 
