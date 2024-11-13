@@ -98,41 +98,44 @@ public class EaseChatRowText extends EaseChatRow {
             }
         }
 
-        quoteView.setVisibility(GONE);
+        if (quoteView != null) {
+            quoteView.setVisibility(GONE);
 
-        quoteView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (itemClickListener == null){
-                    return;
-                }
-                String msgQuote = message.getStringAttribute(EaseConstant.QUOTE_MSG_QUOTE,"");
-                if (!TextUtils.isEmpty(msgQuote)){
-                    try {
-                        JSONObject jsonObject = new JSONObject(msgQuote);
-                        String quoteMsgID = jsonObject.getString(EaseConstant.QUOTE_MSG_ID);
-                        EMMessage showMsg = EMClient.getInstance().chatManager().getMessage(quoteMsgID);
-                        if(showMsg == null) {
-                            itemClickListener.onMessageError(null, EMError.GENERAL_ERROR, context.getString(R.string.ease_error_message_not_exist));
-                            return;
+            quoteView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (itemClickListener == null) {
+                        return;
+                    }
+                    String msgQuote = message.getStringAttribute(EaseConstant.QUOTE_MSG_QUOTE, "");
+                    if (!TextUtils.isEmpty(msgQuote)) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(msgQuote);
+                            String quoteMsgID = jsonObject.getString(EaseConstant.QUOTE_MSG_ID);
+                            EMMessage showMsg = EMClient.getInstance().chatManager().getMessage(quoteMsgID);
+                            if (showMsg == null) {
+                                itemClickListener.onMessageError(null, EMError.GENERAL_ERROR, context.getString(R.string.ease_error_message_not_exist));
+                                return;
+                            }
+                            itemClickListener.onQuoteViewClick(showMsg);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        itemClickListener.onQuoteViewClick(showMsg);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
                 }
-            }
-        });
+            });
 
-        quoteView.setOnLongClickListener(new OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (itemClickListener != null) {
-                    return itemClickListener.onQuoteViewLongClick(v, message);
+            quoteView.setOnLongClickListener(new OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (itemClickListener != null) {
+                        return itemClickListener.onQuoteViewLongClick(v, message);
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+
+        }
         onSetUpQuoteView(message);
     }
 

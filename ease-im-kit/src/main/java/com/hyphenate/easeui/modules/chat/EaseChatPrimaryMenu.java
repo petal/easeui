@@ -109,7 +109,9 @@ public class EaseChatPrimaryMenu extends RelativeLayout implements IChatPrimaryM
         editText.setOnClickListener(this);
         editText.setOnEditTextChangeListener(this);
         editText.addTextChangedListener(this);
-        cancelSelect.setOnClickListener(this);
+        if (cancelSelect != null) {
+            cancelSelect.setOnClickListener(this);
+        }
         buttonPressToSpeak.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
