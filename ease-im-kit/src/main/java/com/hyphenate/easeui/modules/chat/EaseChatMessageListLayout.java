@@ -7,9 +7,12 @@ import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
@@ -185,6 +188,21 @@ public class EaseChatMessageListLayout extends RelativeLayout implements IChatMe
         baseAdapter.addAdapter(messageAdapter);
         rvList.setAdapter(baseAdapter);
 
+        InputMethodManager imm = (InputMethodManager) rvList.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        GestureDetector gestureDetector = new GestureDetector(rvList.getContext(), new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                imm.hideSoftInputFromWindow(rvList.getWindowToken(), 0);
+                return super.onSingleTapUp(e);
+            }
+        });
+
+        rvList.setOnTouchListener((view, motionEvent) -> {
+            if (view instanceof RecyclerView) {
+                return gestureDetector.onTouchEvent(motionEvent);
+            }
+            return false;
+        });
         registerChatType();
 
         initListener();
