@@ -19,10 +19,15 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -42,10 +47,10 @@ import com.hyphenate.util.EMLog;
 
 /**
  * download and show original image
- * 
+ *
  */
 public class EaseShowBigImageActivity extends EaseBaseActivity {
-	private static final String TAG = "ShowBigImage"; 
+	private static final String TAG = "ShowBigImage";
 	private ProgressDialog pd;
 	private EasePhotoView image;
 	private int default_res = R.drawable.ease_default_image;
@@ -57,10 +62,18 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		setContentView(R.layout.ease_activity_show_big_image);
+//		requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//		overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.hold);
 		super.onCreate(savedInstanceState);
-		setFitSystemForTheme(true, R.color.black, false);
+		setContentView(R.layout.ease_activity_show_big_image);
+		WindowInsetsControllerCompat windowInsetsController = WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+		windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+		windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
+
+//		setFitSystemForTheme(true, R.color.black, false);
 		image = (EasePhotoView) findViewById(R.id.image);
+		image.setOnViewTapListener((view, x, y) -> exit());
 		ProgressBar loadLocalPb = (ProgressBar) findViewById(R.id.pb_load_local);
 		default_res = getIntent().getIntExtra("default_image", R.drawable.ease_default_avatar);
 		Uri uri = getIntent().getParcelableExtra("uri");
@@ -82,7 +95,7 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 				msg = getIntent().getParcelableExtra("msg");
 				if(msg == null) {
 					EMLog.e(TAG, "message is null, messageId: " + msgId);
-					finish();
+					exit();
 					return;
 				}
 			}
@@ -124,7 +137,7 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 
 	/**
 	 * download image
-	 * 
+	 *
 	 * @param msg
 	 */
 	@SuppressLint("NewApi")
@@ -188,7 +201,7 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 				});
 			}
 		};
-		
+
 
 		msg.setMessageStatusCallback(callback);
 
@@ -196,9 +209,20 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 	}
 
 	@Override
+	public void finish() {
+		super.finish();
+		overridePendingTransition(R.anim.hold, R.anim.slide_out_to_bottom);
+	}
+
+	@Override
 	public void onBackPressed() {
 		if (isDownloaded)
 			setResult(RESULT_OK);
-		finish();
+        exit();
 	}
+
+    private void exit() {
+        finish();
+//		ActivityCompat.finishAfterTransition(this);
+    }
 }

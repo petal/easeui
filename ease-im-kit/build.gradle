@@ -44,6 +44,7 @@ dependencies {
 //  api project(':hyphenatechatsdk')
     api 'io.hyphenate:hyphenate-chat:4.5.0'
     implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.core:core:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0'

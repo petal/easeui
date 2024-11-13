@@ -1,17 +1,20 @@
 package com.hyphenate.easeui.viewholder;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMFileMessageBody;
 import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseIM;
+import com.hyphenate.easeui.R;
 import com.hyphenate.easeui.interfaces.MessageListItemClickListener;
 import com.hyphenate.easeui.ui.EaseShowBigImageActivity;
 import com.hyphenate.easeui.utils.EaseFileUtils;
@@ -78,7 +81,7 @@ public class EaseImageViewHolder extends EaseChatRowViewHolder {
             }
         }
 
-        getContext().startActivity(intent);
+        getContext().startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) itemView.getContext(), itemView.findViewById(R.id.image), "chart_image").toBundle());
     }
 
     @Override
