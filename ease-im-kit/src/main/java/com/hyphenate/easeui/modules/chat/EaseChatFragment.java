@@ -43,9 +43,13 @@ import com.hyphenate.util.EMLog;
 import com.hyphenate.util.ImageUtils;
 import com.hyphenate.util.PathUtil;
 import com.hyphenate.util.VersionUtils;
+import com.mx.imgpicker.builder.MXPickerBuilder;
+import com.mx.imgpicker.models.MXCompressType;
+import com.mx.starter.MXStarter;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class EaseChatFragment extends EaseBaseFragment implements OnChatLayoutListener, OnMenuChangeListener,
         OnAddMsgAttrsBeforeSendEvent, OnChatRecordTouchListener, OnTranslateMessageListener, OnChatFinishListener, OnModifyMessageListener, ChatQuoteMessageProvider {
@@ -284,7 +288,18 @@ public class EaseChatFragment extends EaseBaseFragment implements OnChatLayoutLi
      * select local image
      */
     protected void selectPicFromLocal() {
-        EaseCompat.openImage(this, REQUEST_CODE_LOCAL);
+//        EaseCompat.openImage(this, REQUEST_CODE_LOCAL);
+        MXStarter.INSTANCE.start(
+                this,
+                new MXPickerBuilder().setMaxSize(1).setMaxListSize(1000).setCameraEnable(false).setCompressType(MXCompressType.OFF)
+                        .createIntent(requireContext()), (resultCode, data) -> {
+                    List<String> list = MXPickerBuilder.Companion.getPickerResult(data);
+                    if (!list.isEmpty()) {
+                        chatLayout.sendImageMessage(Uri.parse(list.get(0)));
+                    }
+                    return null;
+                }
+        );
     }
 
     /**
