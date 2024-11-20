@@ -407,9 +407,9 @@ public class EaseChatMessageListLayout extends RelativeLayout implements IChatMe
         });
         messageAdapter.setListItemClickListener(new MessageListItemClickListener() {
             @Override
-            public boolean onBubbleClick(EMMessage message) {
+            public boolean onBubbleClick(View v, EMMessage message) {
                 if(messageListItemClickListener != null) {
-                    return messageListItemClickListener.onBubbleClick(message);
+                    return messageListItemClickListener.onBubbleClick(v, message);
                 }
                 return false;
             }

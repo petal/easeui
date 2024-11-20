@@ -937,9 +937,9 @@ public class EaseChatLayout extends RelativeLayout implements IChatLayout, IHand
     }
 
     @Override
-    public boolean onBubbleClick(EMMessage message) {
+    public boolean onBubbleClick(View v, EMMessage message) {
         if (listener != null) {
-            return listener.onBubbleClick(message);
+            return listener.onBubbleClick(v, message);
         }
         return false;
     }

@@ -14,7 +14,7 @@ public interface MessageListItemClickListener{
 	 * @param message
 	 * @return
 	 */
-	boolean onBubbleClick(EMMessage message);
+	boolean onBubbleClick(View v, EMMessage message);
 
 	/**
 	 * click resend view

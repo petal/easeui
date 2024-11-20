@@ -14,7 +14,7 @@ public interface OnChatLayoutListener {
      * @param message
      * @return
      */
-    boolean onBubbleClick(EMMessage message);
+    boolean onBubbleClick(View v, EMMessage message);
 
     /**
      * 长按消息bubble区域
