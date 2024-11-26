@@ -19,11 +19,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.activity.ComponentActivity;
+import androidx.activity.EdgeToEdge;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -62,8 +62,7 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-//		requestWindowFeature(Window.FEATURE_NO_TITLE);
-//		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		EdgeToEdge.enable((ComponentActivity) this);
 //		overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.hold);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ease_activity_show_big_image);
@@ -71,7 +70,6 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 		windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
 		windowInsetsController.hide(WindowInsetsCompat.Type.systemBars());
 
-//		setFitSystemForTheme(true, R.color.black, false);
 		image = (EasePhotoView) findViewById(R.id.image);
 		image.setOnViewTapListener((view, x, y) -> exit());
 		ProgressBar loadLocalPb = (ProgressBar) findViewById(R.id.pb_load_local);
@@ -222,7 +220,7 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 	}
 
     private void exit() {
-        finish();
-//		ActivityCompat.finishAfterTransition(this);
+//        finish();
+		ActivityCompat.finishAfterTransition(this);
     }
 }
