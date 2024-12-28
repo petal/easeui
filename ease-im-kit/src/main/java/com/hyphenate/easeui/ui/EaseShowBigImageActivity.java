@@ -209,7 +209,7 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 	@Override
 	public void finish() {
 		super.finish();
-		overridePendingTransition(R.anim.hold, R.anim.slide_out_to_bottom);
+		overridePendingTransition(R.anim.hold, R.anim.slide_out_scale);
 	}
 
 	@Override
@@ -220,7 +220,7 @@ public class EaseShowBigImageActivity extends EaseBaseActivity {
 	}
 
     private void exit() {
-//        finish();
-		ActivityCompat.finishAfterTransition(this);
+        finish();
+//		ActivityCompat.finishAfterTransition(this);
     }
 }
