@@ -292,6 +292,7 @@ public class EaseChatFragment extends EaseBaseFragment implements OnChatLayoutLi
         MXStarter.INSTANCE.start(
                 this,
                 new MXPickerBuilder().setMaxSize(1).setMaxListSize(1000).setCameraEnable(false).setCompressType(MXCompressType.OFF)
+                        .setUsePreview(false).setShowSelectedIcon(true)
                         .createIntent(requireContext()), (resultCode, data) -> {
                     List<String> list = MXPickerBuilder.Companion.getPickerResult(data);
                     if (!list.isEmpty()) {
