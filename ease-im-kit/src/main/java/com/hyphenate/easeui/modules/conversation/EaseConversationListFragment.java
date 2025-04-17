@@ -24,7 +24,7 @@ import com.hyphenate.util.EMLog;
 
 import java.util.List;
 
-public class EaseConversationListFragment extends EaseBaseFragment implements OnItemClickListener, OnPopupMenuItemClickListener, OnPopupMenuPreShowListener, SwipeRefreshLayout.OnRefreshListener, OnConversationLoadListener, OnConversationChangeListener {
+abstract public class EaseConversationListFragment extends EaseBaseFragment implements OnItemClickListener, OnPopupMenuItemClickListener, OnPopupMenuPreShowListener, SwipeRefreshLayout.OnRefreshListener, OnConversationLoadListener, OnConversationChangeListener {
     private static final String TAG = EaseConversationListFragment.class.getSimpleName();
     public LinearLayout llRoot;
     public EaseConversationListLayout conversationListLayout;

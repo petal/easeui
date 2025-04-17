@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'org.jetbrains.kotlin.android'
 //group = "com.hyphenate"//groupId
 
 android {
@@ -31,18 +32,23 @@ android {
     lint {
         abortOnError false
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 
 }
 
 
 dependencies {
+    implementation 'androidx.core:core-ktx:1.10.1'
+
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
     // baidu
     compileOnly files('libs/BaiduLBS_Android.jar')
     implementation files('libs/pinyin4j-2.5.0.jar')
 
 //  api project(':hyphenatechatsdk')
-    api 'io.hyphenate:hyphenate-chat:4.5.0'
+    api 'io.hyphenate:hyphenate-chat:4.10.3'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.core:core:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
