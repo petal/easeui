@@ -8,6 +8,8 @@ import java.util.List;
  * 会话列表加载数据的监听
  */
 public interface OnConversationLoadListener {
+    default void filterData(List<EaseConversationInfo> data, List<EaseConversationInfo> filterList) {}
+
     /**
      * 加载完成后回调
      * @param data
