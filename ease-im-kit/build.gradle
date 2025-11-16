@@ -1,15 +1,18 @@
-apply plugin: 'com.android.library'
-apply plugin: 'org.jetbrains.kotlin.android'
+plugins {
+    id 'com.android.library'
+    id("org.jetbrains.kotlin.android")
+    id 'maven-publish'
+}
 //group = "com.hyphenate"//groupId
 
 android {
-    compileSdkVersion 34
+    compileSdk 34
 //    buildToolsVersion "29.0.3"
 
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 31
+        minSdk 21
+        targetSdk 29
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -36,6 +39,12 @@ android {
         jvmTarget = '1.8'
     }
 
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 
@@ -58,13 +67,24 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.2.0-beta01"
     api 'com.github.bumptech.glide:glide:4.9.0'
 
-    api project(path: ':ImagePickerLib')
+//    api project(path: ':ImagePickerLib')
+    api 'com.mx.imgpicker:MXImagePicker:1.0.canary'
     api 'com.gitee.zhangmengxiong:MXStarter:1.2.3'
 
     implementation("androidx.activity:activity:1.9.2")
 
 }
-//apply from: "../upload_aar.gradle"
-//apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
 
-//apply from: "../maven-push-release.gradle"
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'com.hyphenate'
+            artifactId = 'easeui'
+            version = '1.0.canary'
+
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
+}
