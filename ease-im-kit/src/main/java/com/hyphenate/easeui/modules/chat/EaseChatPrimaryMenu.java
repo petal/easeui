@@ -302,7 +302,9 @@ public class EaseChatPrimaryMenu extends RelativeLayout implements IChatPrimaryM
 
     private void cancelQuote(){
         quoteLayout.setVisibility(View.GONE);
-        quoteTitle.setText("");
+        if (quoteTitle != null) {
+            quoteTitle.setText("");
+        }
     }
 
     public void showDefaultQuote(EMMessage message){
@@ -353,11 +355,14 @@ public class EaseChatPrimaryMenu extends RelativeLayout implements IChatPrimaryM
                 break;
         }
         // 设置内容
-        SpannableString spannableString = new SpannableString(span);
-        quoteTitle.setText(spannableString);
-        quoteTitle.setEllipsize(TextUtils.TruncateAt.END);
-        quoteTitle.setMaxLines(1);
-        quoteLayout.setVisibility(View.VISIBLE);
+        if (quoteTitle != null) {
+            SpannableString spannableString = new SpannableString(span);
+            quoteTitle.setText(spannableString);
+            quoteTitle.setEllipsize(TextUtils.TruncateAt.END);
+            quoteTitle.setMaxLines(1);
+            quoteLayout.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override

@@ -86,6 +86,9 @@ public class EaseCommonUtils {
      * @return
      */
     public static String getMessageDigest(EMMessage message, Context context) {
+        if (message == null) {
+            return "";
+        }
         String digest = "";
         switch (message.getType()) {
         case LOCATION:
