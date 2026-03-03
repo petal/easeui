@@ -68,7 +68,7 @@ dependencies {
     api 'com.github.bumptech.glide:glide:4.9.0'
 
 //    api project(path: ':ImagePickerLib')
-    api 'com.mx.imgpicker:MXImagePicker:1.0.canary'
+    api 'com.mx.imgpicker:MXImagePicker:1.0.1.canary'
     api 'com.gitee.zhangmengxiong:MXStarter:1.2.3'
 
     implementation("androidx.activity:activity:1.9.2")
